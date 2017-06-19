@@ -1,0 +1,27 @@
+{% extends 'basic_app/base.html' %}
+{% load staticfiles %}
+<!-- just in case we need to import our files e.g. welcome pictures -->
+
+{% block body_block %}
+
+<!--  put in the form-->
+<div class="jumbotron">
+  {% if registered %} <!--  if context dict returns something that says 'registered'-->
+    <h1>Thank you for registering!</h1>
+  {% else %}
+    <h1>Register Here!</h1>
+    <h3>Fill out the form:</h3>
+
+      <!-- class and action we can take care of later, enctype is to allow images
+            , want method to be last for readability-->
+      <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        {{ user_form.as_p }} <!-- base user form as paragraph  -->
+        {{ profile_form.as_p}} <!-- both user_form and profile_form will be defined
+                                    be defined in context dict of views-->
+        <input type="submit" name="" value="Register">
+      </form>
+  {% endif %}
+</div>
+
+{% endblock %}
